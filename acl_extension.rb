@@ -14,12 +14,13 @@ class AclExtension < Spree::Extension
 
   def activate
     Admin::BaseController.class_eval do
+      require 'ipaddr'
       before_filter :check_acl if RAILS_ENV == 'production'
 
       def check_acl
         netl = []
-        # Example
-        # netl << IPAddr.new('1.2.3.4')
+        # Example - Loopback IP
+        netl << IPAddr.new('127.0.0.1')
 
         redirect_to root_url unless netl.include?(IPAddr.new(request.remote_ip))
       end
