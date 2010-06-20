@@ -18,8 +18,8 @@ class AclExtension < Spree::Extension
 
       def check_acl
         netl = []
-        # HKSTP
-        netl << IPAddr.new('118.142.56.30')
+        # Example
+        # netl << IPAddr.new('1.2.3.4')
 
         redirect_to root_url unless netl.include?(IPAddr.new(request.remote_ip))
       end
